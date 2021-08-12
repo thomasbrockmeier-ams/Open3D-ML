@@ -192,6 +192,7 @@ class Amsterdam3DSplit(BaseDatasetSplit):
 
         log.info("Found {} pointclouds for {}".format(len(self.path_list),
                                                       split))
+        self.RD_OFFSET = [129500,476500, 0]
 
     def __len__(self):
         return len(self.path_list)
@@ -202,7 +203,7 @@ class Amsterdam3DSplit(BaseDatasetSplit):
 
         data = laspy.read(pc_path)
 
-        points = np.vstack((data.x, data.y, data.z)).T.astype(np.float32)
+        points = (np.vstack((data.x, data.y, data.z)).T - self.RD_OFFSET).astype(np.float32)
 
         feat = np.vstack((data.red, data.green, data.blue)).T.astype(np.float32)
 

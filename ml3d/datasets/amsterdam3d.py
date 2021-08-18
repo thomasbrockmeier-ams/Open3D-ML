@@ -71,11 +71,8 @@ class Amsterdam3D(BaseDataset):
         self.label_to_idx = {l: i for i, l in enumerate(self.label_values)}
         self.ignored_labels = np.array(cfg.ignored_label_inds)
 
-        train_path = cfg.dataset_path + "/train/"
-        self.train_files = glob.glob(str(Path(train_path) / '*.laz'))
-
-        test_path = cfg.dataset_path + "/test/"
-        self.test_files = glob.glob(str(Path(test_path) /  '*.laz'))
+        self.train_files = glob.glob(str(Path(cfg.dataset_path) / 'train_*.laz'))
+        self.test_files = glob.glob(str(Path(cfg.dataset_path) /  'test_*.laz'))
 
         self.val_files = self.test_files
 
